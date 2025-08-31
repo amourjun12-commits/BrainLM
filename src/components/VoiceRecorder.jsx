@@ -41,9 +41,12 @@ const VoiceRecorder = ({ onTranscriptionChange, placeholder = "Appuyez pour enre
   }, [transcription, onTranscriptionChange])
 
   const handleRecordClick = () => {
+    console.log('🎯 Clic sur le bouton d\'enregistrement')
     if (isRecording) {
+      console.log('⏹️ Arrêt de l\'enregistrement...')
       stopRecording()
     } else {
+      console.log('▶️ Démarrage de l\'enregistrement...')
       startRecording()
     }
   }
@@ -64,9 +67,12 @@ const VoiceRecorder = ({ onTranscriptionChange, placeholder = "Appuyez pour enre
   }
 
   const handleTranscribe = () => {
+    console.log('🎤 Clic sur transcription, audioBlob:', !!audioBlob, 'transcription:', !!transcription)
     if (audioBlob && !transcription) {
+      console.log('🔄 Démarrage de la transcription...')
       transcribeAudio()
     } else {
+      console.log('👁️ Affichage/masquage de la transcription')
       setShowTranscription(!showTranscription)
     }
   }

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, Mic, AlertCircle, CheckCircle } from 'lucide-react'
 import AudioTest from '../components/AudioTest'
+import AudioDiagnostic from '../components/AudioDiagnostic'
 
 const AudioTestPage = () => {
   const isHttps = window.location.protocol === 'https:'
@@ -76,6 +77,9 @@ const AudioTestPage = () => {
             <li>• Cliquez sur "Transcrire" pour obtenir le texte (simulation)</li>
           </ul>
         </div>
+
+        {/* Diagnostic audio */}
+        <AudioDiagnostic />
 
         {/* Test d'enregistrement */}
         <AudioTest />
