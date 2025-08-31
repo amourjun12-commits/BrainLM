@@ -1,12 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, BookOpen, Clock, TrendingUp, Brain, Sparkles, Target, Zap } from 'lucide-react'
+import { Plus, BookOpen, Clock, TrendingUp, Brain, Sparkles, Target, Zap, LogIn, User } from 'lucide-react'
 import { useReflection } from '../context/ReflectionContext'
+import { useAuthContext } from '../context/AuthContext'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 
 const HomePage = () => {
   const { getRecentReflections } = useReflection()
+  const { user, logout } = useAuthContext()
   const recentReflections = getRecentReflections(3)
 
   const stats = [
@@ -96,18 +98,46 @@ const HomePage = () => {
 
       {/* Actions principales améliorées */}
       <div className="px-4 mb-6">
-        <Link
-          to="/new"
-          className="group relative overflow-hidden bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold py-4 px-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3 text-base"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-primary-700 to-secondary-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div className="relative flex items-center space-x-3">
-            <div className="w-7 h-7 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-              <Plus className="w-4 h-4" />
+        {user ? (
+          <Link
+            to="/new"
+            className="group relative overflow-hidden bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold py-4 px-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3 text-base"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-700 to-secondary-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center space-x-3">
+              <div className="w-7 h-7 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                <Plus className="w-4 h-4" />
+              </div>
+              <span>Nouvelle réflexion</span>
             </div>
-            <span>Nouvelle réflexion</span>
+          </Link>
+        ) : (
+          <div className="space-y-3">
+            <Link
+              to="/login"
+              className="group relative overflow-hidden bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold py-4 px-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3 text-base"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-700 to-secondary-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative flex items-center space-x-3">
+                <div className="w-7 h-7 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                  <LogIn className="w-4 h-4" />
+                </div>
+                <span>Se connecter</span>
+              </div>
+            </Link>
+            <Link
+              to="/signup"
+              className="group relative overflow-hidden bg-white text-primary-600 font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3 text-base border-2 border-primary-200"
+            >
+              <div className="relative flex items-center space-x-3">
+                <div className="w-7 h-7 bg-primary-100 rounded-full flex items-center justify-center">
+                  <User className="w-4 h-4" />
+                </div>
+                <span>Créer un compte</span>
+              </div>
+            </Link>
           </div>
-        </Link>
+        )}
       </div>
 
             {/* Réflexions récentes - Design complètement refait */}

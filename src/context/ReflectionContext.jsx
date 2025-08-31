@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
+import { firestoreService } from '../services/firestoreService'
+import { useAuth } from '../hooks/useAuth'
 
 const ReflectionContext = createContext()
 
@@ -55,6 +56,14 @@ const reflectionReducer = (state, action) => {
         loading: false
       }
     
+    case 'CLEAR_REFLECTIONS':
+      return {
+        ...state,
+        reflections: [],
+        loading: false,
+        error: null
+      }
+    
     default:
       return state
   }
@@ -62,54 +71,85 @@ const reflectionReducer = (state, action) => {
 
 export const ReflectionProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reflectionReducer, initialState)
+  const { user } = useAuth()
 
-  // Charger les réflexions depuis le localStorage au démarrage
+  // Charger les réflexions depuis Firestore quand l'utilisateur se connecte
   useEffect(() => {
-    const loadReflections = () => {
-      try {
-        const savedReflections = localStorage.getItem('brainlm-reflections')
-        if (savedReflections) {
-          const reflections = JSON.parse(savedReflections)
-          dispatch({ type: 'LOAD_REFLECTIONS', payload: reflections })
-        }
-      } catch (error) {
-        console.error('Erreur lors du chargement des réflexions:', error)
-        dispatch({ type: 'SET_ERROR', payload: 'Erreur lors du chargement des données' })
-      }
+    if (user) {
+      loadReflections()
+    } else {
+      // Vider les réflexions quand l'utilisateur se déconnecte
+      dispatch({ type: 'CLEAR_REFLECTIONS' })
     }
+  }, [user])
 
-    loadReflections()
-  }, [])
+  const loadReflections = async () => {
+    if (!user) return
 
-  // Sauvegarder les réflexions dans le localStorage à chaque modification
-  useEffect(() => {
-    localStorage.setItem('brainlm-reflections', JSON.stringify(state.reflections))
-  }, [state.reflections])
-
-  const addReflection = (reflectionData) => {
-    const newReflection = {
-      id: uuidv4(),
-      ...reflectionData,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+    dispatch({ type: 'SET_LOADING', payload: true })
+    try {
+      const reflections = await firestoreService.getReflectionsByUser(user.uid)
+      dispatch({ type: 'LOAD_REFLECTIONS', payload: reflections })
+    } catch (error) {
+      console.error('Erreur lors du chargement des réflexions:', error)
+      dispatch({ type: 'SET_ERROR', payload: 'Erreur lors du chargement des données' })
     }
-    
-    dispatch({ type: 'ADD_REFLECTION', payload: newReflection })
-    return newReflection
   }
 
-  const updateReflection = (id, updates) => {
-    const updatedReflection = {
-      ...updates,
-      id,
-      updatedAt: new Date().toISOString()
+  const addReflection = async (reflectionData) => {
+    if (!user) {
+      throw new Error('Utilisateur non connecté')
     }
-    
-    dispatch({ type: 'UPDATE_REFLECTION', payload: updatedReflection })
+
+    dispatch({ type: 'SET_LOADING', payload: true })
+    try {
+      const newReflection = await firestoreService.addReflection(user.uid, reflectionData)
+      dispatch({ type: 'ADD_REFLECTION', payload: newReflection })
+      return newReflection
+    } catch (error) {
+      console.error('Erreur lors de l\'ajout de la réflexion:', error)
+      dispatch({ type: 'SET_ERROR', payload: 'Erreur lors de la sauvegarde' })
+      throw error
+    } finally {
+      dispatch({ type: 'SET_LOADING', payload: false })
+    }
   }
 
-  const deleteReflection = (id) => {
-    dispatch({ type: 'DELETE_REFLECTION', payload: id })
+  const updateReflection = async (id, updates) => {
+    if (!user) {
+      throw new Error('Utilisateur non connecté')
+    }
+
+    dispatch({ type: 'SET_LOADING', payload: true })
+    try {
+      const updatedReflection = await firestoreService.updateReflection(id, updates)
+      dispatch({ type: 'UPDATE_REFLECTION', payload: updatedReflection })
+      return updatedReflection
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour de la réflexion:', error)
+      dispatch({ type: 'SET_ERROR', payload: 'Erreur lors de la mise à jour' })
+      throw error
+    } finally {
+      dispatch({ type: 'SET_LOADING', payload: false })
+    }
+  }
+
+  const deleteReflection = async (id) => {
+    if (!user) {
+      throw new Error('Utilisateur non connecté')
+    }
+
+    dispatch({ type: 'SET_LOADING', payload: true })
+    try {
+      await firestoreService.deleteReflection(id)
+      dispatch({ type: 'DELETE_REFLECTION', payload: id })
+    } catch (error) {
+      console.error('Erreur lors de la suppression de la réflexion:', error)
+      dispatch({ type: 'SET_ERROR', payload: 'Erreur lors de la suppression' })
+      throw error
+    } finally {
+      dispatch({ type: 'SET_LOADING', payload: false })
+    }
   }
 
   const getReflectionById = (id) => {
@@ -129,6 +169,17 @@ export const ReflectionProvider = ({ children }) => {
       .slice(0, limit)
   }
 
+  const searchReflections = async (searchTerm) => {
+    if (!user) return []
+
+    try {
+      return await firestoreService.searchReflections(user.uid, searchTerm)
+    } catch (error) {
+      console.error('Erreur lors de la recherche:', error)
+      return []
+    }
+  }
+
   const value = {
     ...state,
     addReflection,
@@ -136,7 +187,9 @@ export const ReflectionProvider = ({ children }) => {
     deleteReflection,
     getReflectionById,
     getReflectionsByDate,
-    getRecentReflections
+    getRecentReflections,
+    searchReflections,
+    loadReflections
   }
 
   return (
