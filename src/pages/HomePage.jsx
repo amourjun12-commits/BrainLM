@@ -51,59 +51,59 @@ const HomePage = () => {
           }}></div>
         </div>
         <div className="relative px-6 py-16 text-center">
-          <div className="flex items-center justify-center mb-6">
-            <div className="w-20 h-20 bg-white bg-opacity-20 backdrop-blur-sm rounded-3xl flex items-center justify-center mr-5 shadow-2xl">
-              <Brain className="w-10 h-10 text-white" />
+          <div className="flex items-center justify-center mb-8">
+            <div className="w-16 h-16 bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl flex items-center justify-center mr-4 shadow-2xl">
+              <Brain className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-white mb-1">BrainLM</h1>
+              <h1 className="text-3xl font-bold text-white mb-1">BrainLM</h1>
               <p className="text-primary-100 text-sm font-medium">Ancrez vos apprentissages</p>
             </div>
           </div>
-          <p className="text-white text-lg max-w-lg mx-auto leading-relaxed font-light">
+          <p className="text-white text-base max-w-sm mx-auto leading-relaxed font-light">
             Transformez chaque contenu consommé en actions concrètes grâce à des réflexions structurées
           </p>
           
-          {/* Indicateur de progression */}
-          <div className="mt-8 flex items-center justify-center space-x-4">
-            <div className="flex items-center space-x-2 text-white text-sm">
-              <Target className="w-4 h-4" />
-              <span>Objectif quotidien</span>
-            </div>
-            <div className="w-24 h-2 bg-white bg-opacity-20 rounded-full overflow-hidden">
-              <div className="h-full bg-white rounded-full transition-all duration-1000 ease-out" 
-                   style={{ width: `${Math.min((recentReflections.length / 3) * 100, 100)}%` }}></div>
-            </div>
-            <span className="text-white text-sm font-medium">{recentReflections.length}/3</span>
-          </div>
+                     {/* Indicateur de progression */}
+           <div className="mt-6 flex items-center justify-center space-x-3">
+             <div className="flex items-center space-x-1 text-white text-xs">
+               <Target className="w-3 h-3" />
+               <span>Objectif quotidien</span>
+             </div>
+             <div className="w-20 h-1.5 bg-white bg-opacity-20 rounded-full overflow-hidden">
+               <div className="h-full bg-white rounded-full transition-all duration-1000 ease-out" 
+                    style={{ width: `${Math.min((recentReflections.length / 3) * 100, 100)}%` }}></div>
+             </div>
+             <span className="text-white text-xs font-medium">{recentReflections.length}/3</span>
+           </div>
         </div>
       </div>
 
       {/* Stats améliorées */}
-      <div className="px-6 -mt-8 mb-8">
-        <div className="grid grid-cols-3 gap-4">
+      <div className="px-4 -mt-6 mb-6">
+        <div className="grid grid-cols-3 gap-3">
           {stats.map((stat, index) => (
-            <div key={index} className={`card ${stat.bgColor} ${stat.borderColor} border-2 text-center py-6 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl`}>
-              <div className={`w-12 h-12 ${stat.bgColor} rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner`}>
-                <stat.icon className={`w-6 h-6 ${stat.color}`} />
+            <div key={index} className={`card ${stat.bgColor} ${stat.borderColor} border-2 text-center py-4 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl`}>
+              <div className={`w-10 h-10 ${stat.bgColor} rounded-xl flex items-center justify-center mx-auto mb-2 shadow-inner`}>
+                <stat.icon className={`w-5 h-5 ${stat.color}`} />
               </div>
-              <div className={`text-3xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
-              <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
+              <div className={`text-2xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
+              <div className="text-xs text-gray-600 font-medium">{stat.label}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Actions principales améliorées */}
-      <div className="px-6 mb-8">
+      <div className="px-4 mb-6">
         <Link
           to="/new"
-          className="group relative overflow-hidden bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold py-5 px-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3 text-lg"
+          className="group relative overflow-hidden bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold py-4 px-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3 text-base"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-primary-700 to-secondary-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div className="relative flex items-center space-x-3">
-            <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-              <Plus className="w-5 h-5" />
+            <div className="w-7 h-7 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+              <Plus className="w-4 h-4" />
             </div>
             <span>Nouvelle réflexion</span>
           </div>
@@ -111,40 +111,40 @@ const HomePage = () => {
       </div>
 
       {/* Réflexions récentes améliorées */}
-      <div className="px-6 mb-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-900 flex items-center">
-            <Sparkles className="w-5 h-5 text-primary-600 mr-2" />
+      <div className="px-4 mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-bold text-gray-900 flex items-center">
+            <Sparkles className="w-4 h-4 text-primary-600 mr-2" />
             Réflexions récentes
           </h2>
           <Link
             to="/history"
-            className="text-primary-600 hover:text-primary-700 text-sm font-semibold flex items-center space-x-1 transition-colors"
+            className="text-primary-600 hover:text-primary-700 text-xs font-semibold flex items-center space-x-1 transition-colors"
           >
             <span>Voir tout</span>
-            <Zap className="w-4 h-4" />
+            <Zap className="w-3 h-3" />
           </Link>
         </div>
 
-        {recentReflections.length === 0 ? (
-          <div className="card text-center py-16 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200">
-            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Sparkles className="w-8 h-8 text-primary-600" />
+                  {recentReflections.length === 0 ? (
+            <div className="card text-center py-12 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200">
+              <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Sparkles className="w-6 h-6 text-primary-600" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">
+                Commencez votre voyage d'apprentissage
+              </h3>
+              <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                Créez votre première réflexion pour ancrer vos apprentissages et transformer vos connaissances en actions concrètes
+              </p>
+              <Link 
+                to="/new" 
+                className="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Créer ma première réflexion</span>
+              </Link>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">
-              Commencez votre voyage d'apprentissage
-            </h3>
-            <p className="text-gray-600 mb-8 max-w-md mx-auto leading-relaxed">
-              Créez votre première réflexion pour ancrer vos apprentissages et transformer vos connaissances en actions concrètes
-            </p>
-            <Link 
-              to="/new" 
-              className="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              <Plus className="w-5 h-5" />
-              <span>Créer ma première réflexion</span>
-            </Link>
-          </div>
         ) : (
           <div className="space-y-4">
             {recentReflections.map((reflection, index) => (
@@ -167,11 +167,11 @@ const HomePage = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center text-xs text-gray-500">
                     <BookOpen className="w-3 h-3 mr-1" />
-                    <span>
-                      {format(new Date(reflection.createdAt), 'EEEE dd MMMM', { locale: fr })}
+                    <span className="text-xs">
+                      {format(new Date(reflection.createdAt), 'dd MMM', { locale: fr })}
                     </span>
                   </div>
-                  <div className="w-2 h-2 bg-primary-500 rounded-full group-hover:scale-150 transition-transform"></div>
+                  <div className="w-1.5 h-1.5 bg-primary-500 rounded-full group-hover:scale-150 transition-transform"></div>
                 </div>
               </Link>
             ))}
@@ -180,32 +180,32 @@ const HomePage = () => {
       </div>
 
       {/* Conseils améliorés */}
-      <div className="px-6 mb-8">
-        <div className="card bg-gradient-to-r from-primary-50 via-secondary-50 to-primary-50 border-2 border-primary-200 p-6">
-          <h3 className="font-bold text-gray-900 mb-4 flex items-center">
-            <Sparkles className="w-5 h-5 text-primary-600 mr-2" />
+      <div className="px-4 mb-6">
+        <div className="card bg-gradient-to-r from-primary-50 via-secondary-50 to-primary-50 border-2 border-primary-200 p-4">
+          <h3 className="font-bold text-gray-900 mb-3 flex items-center">
+            <Sparkles className="w-4 h-4 text-primary-600 mr-2" />
             Conseil du jour
           </h3>
-          <p className="text-gray-700 leading-relaxed mb-4">
+          <p className="text-gray-700 leading-relaxed mb-3 text-sm">
             Prenez 5 minutes après chaque contenu pour répondre aux trois questions clés. 
             Cette habitude transformera votre façon d'apprendre et d'intégrer l'information.
           </p>
-          <div className="flex items-center space-x-2 text-sm text-primary-600">
-            <Target className="w-4 h-4" />
+          <div className="flex items-center space-x-2 text-xs text-primary-600">
+            <Target className="w-3 h-3" />
             <span>Objectif : 3 réflexions par jour</span>
           </div>
         </div>
       </div>
 
       {/* Navigation bottom améliorée */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4 shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 shadow-lg">
         <div className="max-w-md mx-auto flex items-center justify-around">
           <Link
             to="/"
             className="flex flex-col items-center space-y-1 text-primary-600"
           >
-            <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
-              <BookOpen className="w-5 h-5" />
+            <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+              <BookOpen className="w-4 h-4" />
             </div>
             <span className="text-xs font-semibold">Accueil</span>
           </Link>
@@ -213,8 +213,8 @@ const HomePage = () => {
             to="/new"
             className="flex flex-col items-center space-y-1 text-gray-600 hover:text-primary-600 transition-colors"
           >
-            <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-primary-100 transition-colors">
-              <Plus className="w-5 h-5" />
+            <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-primary-100 transition-colors">
+              <Plus className="w-4 h-4" />
             </div>
             <span className="text-xs font-semibold">Nouveau</span>
           </Link>
@@ -222,8 +222,8 @@ const HomePage = () => {
             to="/history"
             className="flex flex-col items-center space-y-1 text-gray-600 hover:text-primary-600 transition-colors"
           >
-            <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-primary-100 transition-colors">
-              <Clock className="w-5 h-5" />
+            <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-primary-100 transition-colors">
+              <Clock className="w-4 h-4" />
             </div>
             <span className="text-xs font-semibold">Historique</span>
           </Link>

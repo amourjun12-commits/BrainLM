@@ -25,27 +25,27 @@ const QuestionCard = ({
   return (
     <div className="card mb-6">
       {/* Question principale */}
-      <div className="flex items-start justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 leading-relaxed">
+      <div className="flex items-start justify-between mb-3">
+        <h3 className="text-base font-semibold text-gray-900 leading-relaxed">
           {question}
         </h3>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1">
           <button
             onClick={toggleVoiceRecorder}
-            className="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+            className="p-1.5 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
             title="Enregistrer vocalement"
           >
-            <Mic className="w-5 h-5" />
+            <Mic className="w-4 h-4" />
           </button>
           {subQuestions.length > 0 && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="p-2 text-gray-500 hover:bg-gray-50 rounded-lg transition-colors"
+              className="p-1.5 text-gray-500 hover:bg-gray-50 rounded-lg transition-colors"
             >
               {isExpanded ? (
-                <ChevronUp className="w-5 h-5" />
+                <ChevronUp className="w-4 h-4" />
               ) : (
-                <ChevronDown className="w-5 h-5" />
+                <ChevronDown className="w-4 h-4" />
               )}
             </button>
           )}

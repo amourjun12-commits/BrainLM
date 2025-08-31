@@ -88,28 +88,28 @@ const NewReflectionPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       {/* Header amélioré */}
-      <div className="bg-gradient-to-r from-primary-600 to-secondary-600 px-6 py-6 text-white">
+      <div className="bg-gradient-to-r from-primary-600 to-secondary-600 px-4 py-5 text-white">
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigate(-1)}
             className="p-2 text-white hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-4 h-4" />
           </button>
-          <h1 className="text-xl font-bold">Nouvelle réflexion</h1>
+          <h1 className="text-lg font-bold">Nouvelle réflexion</h1>
           <button
             onClick={handleSaveDraft}
-            className="text-sm text-white hover:text-white hover:bg-white hover:bg-opacity-20 px-3 py-1 rounded-lg transition-all duration-300"
+            className="text-xs text-white hover:text-white hover:bg-white hover:bg-opacity-20 px-2 py-1 rounded-lg transition-all duration-300"
           >
             Brouillon
           </button>
         </div>
-        <p className="text-primary-100 text-sm mt-2 text-center">
+        <p className="text-primary-100 text-xs mt-2 text-center">
           Ancrez vos apprentissages en répondant à ces questions clés
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="px-6 py-6">
+      <form onSubmit={handleSubmit} className="px-4 py-4">
         {/* Informations du contenu */}
         <div className="card mb-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
@@ -173,7 +173,7 @@ const NewReflectionPage = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="btn-primary w-full flex items-center justify-center space-x-2"
+            className="btn-primary w-full flex items-center justify-center space-x-2 py-4"
           >
             {isSubmitting ? (
               <>
@@ -182,7 +182,7 @@ const NewReflectionPage = () => {
               </>
             ) : (
               <>
-                <Save className="w-5 h-5" />
+                <Save className="w-4 h-4" />
                 <span>Sauvegarder ma réflexion</span>
               </>
             )}
@@ -191,7 +191,7 @@ const NewReflectionPage = () => {
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="btn-secondary w-full"
+            className="btn-secondary w-full py-4"
           >
             Annuler
           </button>
