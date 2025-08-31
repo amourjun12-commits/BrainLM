@@ -6,6 +6,7 @@ import ReflectionDetailPage from './pages/ReflectionDetailPage'
 import HistoryPage from './pages/HistoryPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import AudioTestPage from './pages/AudioTestPage'
 import { ReflectionProvider } from './context/ReflectionContext'
 import { useAuth } from './hooks/useAuth'
 import LoadingSpinner from './components/LoadingSpinner'
@@ -28,6 +29,7 @@ function App() {
             <Route path="/new" element={<NewReflectionPage />} />
             <Route path="/reflection/:id" element={<ReflectionDetailPage />} />
             <Route path="/history" element={<HistoryPage />} />
+            <Route path="/audio-test" element={<AudioTestPage />} />
           </Routes>
         </div>
       </Router>

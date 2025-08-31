@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, BookOpen, Clock, TrendingUp, Brain, Sparkles, Target, Zap, LogIn, User } from 'lucide-react'
+import { Plus, BookOpen, Clock, TrendingUp, Brain, Sparkles, Target, Zap, LogIn, User, Mic } from 'lucide-react'
 import { useReflection } from '../context/ReflectionContext'
 import { useAuthContext } from '../context/AuthContext'
 import { format } from 'date-fns'
@@ -250,6 +250,29 @@ const HomePage = () => {
             ))}
           </div>
         )}
+      </div>
+
+      {/* Test audio */}
+      <div className="px-4 mb-6">
+        <Link
+          to="/audio-test"
+          className="block bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-100 hover:border-green-200 transition-all duration-200"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                <Mic className="w-4 h-4 text-green-600" />
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-green-900">Test d'enregistrement audio</h3>
+                <p className="text-xs text-green-700">Vérifiez que votre microphone fonctionne</p>
+              </div>
+            </div>
+            <div className="text-green-600">
+              <span className="text-xs font-medium">Tester →</span>
+            </div>
+          </div>
+        </Link>
       </div>
 
       {/* Conseils améliorés */}

@@ -9,6 +9,7 @@ const VoiceRecorder = ({ onTranscriptionChange, placeholder = "Appuyez pour enre
     audioUrl,
     transcription,
     isTranscribing,
+    error,
     startRecording,
     stopRecording,
     transcribeAudio,
@@ -78,13 +79,36 @@ const VoiceRecorder = ({ onTranscriptionChange, placeholder = "Appuyez pour enre
 
   return (
     <div className="space-y-4">
+      {/* Message d'erreur */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+          <div className="flex items-start space-x-2">
+            <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span className="text-white text-xs">!</span>
+            </div>
+            <div>
+              <h4 className="text-sm font-medium text-red-800 mb-1">Erreur d'enregistrement</h4>
+              <p className="text-sm text-red-700">{error}</p>
+              {error.includes('HTTPS') && (
+                <p className="text-xs text-red-600 mt-2">
+                  💡 Conseil : Utilisez l'application en mode développement (localhost) ou déployez-la sur HTTPS.
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Bouton d'enregistrement */}
       <div className="flex items-center justify-center">
         <button
           onClick={handleRecordClick}
+          disabled={!!error}
           className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
             isRecording
               ? 'bg-red-500 animate-pulse-slow shadow-lg'
+              : error
+              ? 'bg-gray-400 cursor-not-allowed'
               : 'bg-primary-600 hover:bg-primary-700 shadow-md'
           }`}
         >
