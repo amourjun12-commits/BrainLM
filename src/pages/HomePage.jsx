@@ -126,57 +126,78 @@ const HomePage = () => {
           </Link>
         </div>
 
-                  {recentReflections.length === 0 ? (
-            <div className="card text-center py-12 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200">
-              <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Sparkles className="w-6 h-6 text-primary-600" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Commencez votre voyage d'apprentissage
-              </h3>
-              <p className="text-gray-600 mb-6 text-sm leading-relaxed">
-                Créez votre première réflexion pour ancrer vos apprentissages et transformer vos connaissances en actions concrètes
-              </p>
-              <Link 
-                to="/new" 
-                className="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm"
-              >
-                <Plus className="w-4 h-4" />
-                <span>Créer ma première réflexion</span>
-              </Link>
-            </div>
-        ) : (
-          <div className="space-y-4">
-            {recentReflections.map((reflection, index) => (
-              <Link
-                key={reflection.id}
-                to={`/reflection/${reflection.id}`}
-                className="group card hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] border-2 border-gray-100 hover:border-primary-200 cursor-pointer"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-bold text-gray-900 line-clamp-2 flex-1 group-hover:text-primary-700 transition-colors">
-                    {reflection.contentTitle || 'Réflexion sans titre'}
-                  </h3>
-                  <span className="text-xs text-gray-500 ml-2 bg-gray-100 px-2 py-1 rounded-full">
-                    {format(new Date(reflection.createdAt), 'dd/MM', { locale: fr })}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-600 line-clamp-2 mb-3">
-                  {reflection.learned || 'Aucun contenu saisi'}
-                </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center text-xs text-gray-500">
-                    <BookOpen className="w-3 h-3 mr-1" />
-                    <span className="text-xs">
-                      {format(new Date(reflection.createdAt), 'dd MMM', { locale: fr })}
+                                     {recentReflections.length === 0 ? (
+             <div className="bg-white rounded-xl border-2 border-dashed border-gray-300 text-center py-8">
+               <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                 <Sparkles className="w-6 h-6 text-gray-400" />
+               </div>
+               <h3 className="text-base font-semibold text-gray-900 mb-2">
+                 Aucune réflexion pour le moment
+               </h3>
+               <p className="text-gray-500 mb-4 text-sm">
+                 Créez votre première réflexion pour commencer
+               </p>
+               <Link 
+                 to="/new" 
+                 className="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 text-sm"
+               >
+                 <Plus className="w-4 h-4" />
+                 <span>Première réflexion</span>
+               </Link>
+             </div>
+                  ) : (
+            <div className="space-y-3">
+              {recentReflections.map((reflection, index) => (
+                <Link
+                  key={reflection.id}
+                  to={`/reflection/${reflection.id}`}
+                  className="group block bg-white rounded-xl border border-gray-200 hover:border-primary-300 hover:shadow-lg transition-all duration-300 p-4"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="font-semibold text-gray-900 text-sm leading-tight flex-1 group-hover:text-primary-700 transition-colors">
+                      {reflection.contentTitle || 'Réflexion sans titre'}
+                    </h3>
+                    <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full ml-2 flex-shrink-0">
+                      {format(new Date(reflection.createdAt), 'dd/MM', { locale: fr })}
                     </span>
                   </div>
-                  <div className="w-1.5 h-1.5 bg-primary-500 rounded-full group-hover:scale-150 transition-transform"></div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
+                  
+                  {reflection.learned && (
+                    <p className="text-xs text-gray-600 line-clamp-1 mb-2">
+                      <span className="font-medium text-gray-700">Appris :</span> {reflection.learned}
+                    </p>
+                  )}
+                  
+                  {reflection.importance && (
+                    <p className="text-xs text-gray-600 line-clamp-1 mb-2">
+                      <span className="font-medium text-gray-700">Important :</span> {reflection.importance}
+                    </p>
+                  )}
+                  
+                  {reflection.actions && (
+                    <p className="text-xs text-gray-600 line-clamp-1 mb-2">
+                      <span className="font-medium text-gray-700">Actions :</span> {reflection.actions}
+                    </p>
+                  )}
+                  
+                  <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <BookOpen className="w-3 h-3 mr-1" />
+                      <span>{format(new Date(reflection.createdAt), 'dd MMM yyyy', { locale: fr })}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      {reflection.contentLink && (
+                        <span className="text-xs text-primary-600 bg-primary-50 px-2 py-1 rounded-full">
+                          Lien
+                        </span>
+                      )}
+                      <div className="w-2 h-2 bg-primary-500 rounded-full group-hover:scale-150 transition-transform"></div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
       </div>
 
       {/* Conseils améliorés */}
