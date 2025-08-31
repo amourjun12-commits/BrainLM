@@ -20,23 +20,31 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl active:scale-95;
+    @apply bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 transform;
   }
   
   .btn-secondary {
-    @apply bg-white hover:bg-gray-50 text-primary-600 font-medium py-3 px-6 rounded-xl border-2 border-primary-200 transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
+    @apply bg-white hover:bg-gray-50 text-primary-600 font-semibold py-3 px-6 rounded-xl border-2 border-primary-200 transition-all duration-300 shadow-sm hover:shadow-md active:scale-95 transform;
   }
   
   .card {
-    @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-6;
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-6 transition-all duration-300;
   }
   
   .input-field {
-    @apply w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white;
+    @apply w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 bg-white shadow-sm focus:shadow-md;
   }
   
   .mobile-container {
     @apply max-w-md mx-auto min-h-screen bg-gray-50;
+  }
+  
+  .glass-effect {
+    @apply bg-white bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
   }
 }
 
